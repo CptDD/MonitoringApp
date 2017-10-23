@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome</title>
+<script src="angularjs/angular.js"></script>
+<link rel="stylesheet" href="bootstrap/bootstrap.css">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<link rel="stylesheet" href="map.css">
+<script src="bootstrap/bootstrap.min.js"></script>
+<script src="ngModules/angular-route.js"></script><script>
+	var map;
+	var line = [];
+	var lastPos;
+	var myApp = angular.module("MyApp", [ "ngRoute" ]).config(
+			function($routeProvider) {
+				$routeProvider.when("/login", {
+					templateUrl : "views/login.html"
+				});
+				$routeProvider.when("/map", {
+					templateUrl : "views/a.html"
+				});
+				$routeProvider.otherwise({
+					redirectTo : "/login"
+				});
+			});
+</script>
+<script src="controllers/loginController.js"></script>
+</head>
+<body ng-controller="loginCtrl">
+	<ng-view />
+</body>
+</html>

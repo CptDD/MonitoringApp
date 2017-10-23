@@ -1,0 +1,21 @@
+<div class="well">
+	<h3 class="panel-header">Coordinates</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr class="danger">
+				<td>UserId</td>
+				<td>Latitude</td>
+				<td>Longitude</td>
+				<td>Date</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in positions |Go :dd :d2 :all">
+				<td class="success">{{item.userId}}</td>
+				<td class="info">{{item.latitude}}</td>
+				<td class="success">{{item.longitude}}</td>
+				<td class="info">{{item.date}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

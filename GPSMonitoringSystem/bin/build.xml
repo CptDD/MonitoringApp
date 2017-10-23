@@ -1,0 +1,80 @@
+<project name="GPSMonitoringSystem" default="deploy-war">
+
+    <property file="build.properties"/>
+
+    <path id="compile.classpath">
+        <fileset dir="${proj.home}/ext">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="init">
+        <mkdir dir="${build.dest}/build/WEB-INF/classes"/>
+        <mkdir dir="${build.dest}/dist"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac destdir="${build.dest}/build/WEB-INF/classes" debug="true" srcdir="${proj.home}/persistence/src">
+            <classpath refid="compile.classpath"/>
+        </javac>
+        <javac destdir="${build.dest}/build/WEB-INF/classes" debug="true" srcdir="${proj.home}/service/src">
+            <classpath refid="compile.classpath"/>
+        </javac>
+        <javac destdir="${build.dest}/build/WEB-INF/classes" debug="true" srcdir="${proj.home}/webapp/src">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="copy-resources">
+        <copy todir="${build.dest}/build/WEB-INF/classes" includeEmptyDirs="false">
+            <fileset dir="${proj.home}/persistence/resources">
+                <include name="**/*"/>
+            </fileset>
+            <fileset dir="${proj.home}/service/resources">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.dest}/build/WEB-INF" includeEmptyDirs="false">
+            <fileset dir="${proj.home}/webapp/resources">
+                <include name="web.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.dest}/build/WEB-INF/lib">
+            <fileset dir="${ext.dir}/spring">
+                <include name="**/*"/>
+            </fileset>
+            <fileset dir="${ext.dir}/commons-logging">
+                <include name="**/*"/>
+            </fileset>
+            <fileset dir="${ext.dir}/commons_dbcp">
+                <include name="**/*"/>
+            </fileset>
+            <fileset dir="${ext.dir}/jersey">
+                <include name="**/*"/>
+            </fileset>
+            <fileset dir="${ext.dir}/jackson">
+                <include name="**/*"/>
+            </fileset>
+            <fileset dir="${ext.dir}/jdbc">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="war-exploaded" depends="compile, copy-resources">
+    </target>
+
+    <target name="deploy-war" depends="clean, war-exploaded">
+        <delete dir="${deploy.dest}"/>
+        <copy todir="${deploy.dest}">
+            <fileset dir="${build.dest}//build" includes="**"/>
+        </copy>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dest}/dist"/>
+        <delete dir="${build.dest}/build"/>
+    </target>
+
+</project>
