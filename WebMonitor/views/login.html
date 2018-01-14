@@ -1,0 +1,21 @@
+<div class="well">
+	<div class="alert alert-info" ng-hide="loginError">Enter your
+		username and password and press Log in</div>
+	<div class="alert alert-danger" ng-show="loginError">Log in
+		failed :{{loginError}}</div>
+	<form name="loginForm" novalidate>
+		<div class="form-group">
+			<label>Username</label> <input name="username" class="form-control"
+				ng-model="username" required />
+		</div>
+		<div class="form-group">
+			<label>Password</label> <input name="password" type="password"
+				class="form-control" ng-model="password" required />
+		</div>
+		<div class="text-center">
+			<button ng-click="log(username, password)"
+				ng-disabled="loginForm.$invalid" class="btn btn-primary">
+				Log In</button>
+		</div>
+	</form>
+</div>
